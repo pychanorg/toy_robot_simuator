@@ -95,7 +95,16 @@ class TestRobot(unittest.TestCase):
         self.assertTrue(self.robot.right())
 
     def test_move(self):
-        pass
+        self.robot.place(1, 2, 'NORTH')
+        self.assertTrue(self.robot.move())
+        self.assertEqual(self.robot.get_location(), (1, 3))
+        self.assertTrue(self.robot.move())
+        self.assertEqual(self.robot.get_location(), (1, 4))
+
+        # rotate west and move
+        self.assertTrue(self.robot.left())
+        self.assertTrue(self.robot.move())
+        self.assertEqual(self.robot.get_location(), (0, 4))
 
     def test_rotation(self):
         self.robot.place(1, 2, 'NORTH')
@@ -119,6 +128,41 @@ class TestRobot(unittest.TestCase):
         self.assertTrue(self.robot.right())
         self.assertTrue(self.robot.direction, 'NORTH')
 
+
+class TestSimulator(unittest.TestCase):
+    def setUp(self):
+        self.sim = Simulator()
+
+    def test_uninitialized_moves(self):
+        self.assertFalse(self.sim.move())
+        self.assertFalse(self.sim.left())
+        self.assertFalse(self.sim.right())
+        self.assertEqual(self.sim.report(), "")
+
+    def test_bad_initializations(self):
+        self.assertFalse(self.sim.place(-1, -1, "WEST"))  # out of bounds
+        self.assertFalse(self.sim.place(5, 4, "WEST"))  # out of bounds
+        self.assertFalse(self.sim.place(4, 5, "WEST"))  # out of bounds
+
+        self.assertFalse(self.sim.place(4, 4, "WES T"))  # bad direction
+
+    def test_basic_moves(self):
+        """
+        Validate basic movements and assert correct functionally
+        to avoid robot moving out of board
+        """
+        self.assertTrue(self.sim.place(1, 0, "WEST"))
+        self.assertTrue(self.sim.move())
+        self.assertEqual(self.sim.robot.get_location(), (0, 0))
+        self.assertFalse(self.sim.move())  # assert invalid move
+        self.assertEqual(self.sim.robot.get_location(), (0, 0))
+
+        self.assertTrue(self.sim.place(3, 1, "EAST"))
+        self.assertEqual(self.sim.robot.get_location(), (3, 1))
+        self.assertTrue(self.sim.move())
+        self.assertEqual(self.sim.robot.get_location(), (4, 1))
+        self.assertFalse(self.sim.move())  # assert invalid move
+        self.assertEqual(self.sim.robot.get_location(), (4, 1))
 
 
 if __name__ == '__main__':

@@ -5,6 +5,9 @@ from toy_robot_simulator import Simulator
 
 
 def apply_cmd(sim, cmd):
+    """
+    For each robot cmd input line, apply the cmd to simulator
+    """
     result = None
     cmd = cmd.strip().upper()
 

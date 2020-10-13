@@ -200,8 +200,6 @@ def main():
     print(table.is_valid_coordinate(0, 0))
     print(table.is_valid_coordinate(4, 4))
     print(table.is_valid_coordinate(4, 5))
-    # import pdb
-    # pdb.set_trace()
 
 
 if __name__ == '__main__':

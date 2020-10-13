@@ -137,7 +137,7 @@ class Robot:
 
     def __repr__(self):
         if self.is_initialized:
-            return "{} {} {}".format(self.x, self.y, self.direction)
+            return "{},{},{}".format(self.x, self.y, self.direction)
         return ""
 
 

@@ -88,7 +88,7 @@ class TestRobot(unittest.TestCase):
         self.assertEqual(self.robot.y, 2)
         self.assertEqual(self.robot.direction, 'NORTH')
         self.assertTrue(self.robot.is_initialized)
-        self.assertEqual(str(self.robot), "1 2 NORTH")
+        self.assertEqual(str(self.robot), "1,2,NORTH")
 
         self.assertTrue(self.robot.move())
         self.assertTrue(self.robot.left())

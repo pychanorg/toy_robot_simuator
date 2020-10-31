@@ -19,6 +19,12 @@ class Table:
                 self.valid_coordinates.append((x, y))
 
     def is_valid_coordinate(self, x, y):
+        try:
+            # cooerce x/y to int
+            # to handle cases where x/y are in strings
+            x, y = int(x), int(y)
+        except TypeError:
+            pass
         if (x, y) in self.valid_coordinates:
             return True
         return False
@@ -106,7 +112,7 @@ class Robot:
 
     def place(self, x, y, direction):
         self.is_initialized = True
-        self.x, self.y = x, y
+        self.x, self.y = int(x), int(y)
         self.direction = direction
         return True
 

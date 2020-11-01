@@ -94,6 +94,15 @@ class TestRobot(unittest.TestCase):
         self.assertTrue(self.robot.left())
         self.assertTrue(self.robot.right())
 
+    def test_initialize_robot_with_strings(self):
+        # Handle cases where coordinates are in strings
+        self.robot.place("1", "2", 'NORTH')
+        self.assertEqual(str(self.robot), "1,2,NORTH")
+        self.robot.place(2, "2", 'SOUTH')
+        self.assertEqual(str(self.robot), "2,2,SOUTH")
+        self.robot.place("2", 5, 'WEST')
+        self.assertEqual(str(self.robot), "2,5,WEST")
+
     def test_move(self):
         self.robot.place(1, 2, 'NORTH')
         self.assertTrue(self.robot.move())
